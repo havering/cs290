@@ -3,17 +3,14 @@ table {
 	border: solid;
 }
 
-th {
-	text-align: center;
-	font-weight: bold;
+th:first-child {
+	text-align: left;
+	font-style: italic;
+	font-weight: normal;
 }
 
 td {
 	padding-right: 5px;
-}
-
-td:nth-child(1) {
-	font-style: italic;
 }
 
 tr:nth-child(odd) {
