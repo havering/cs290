@@ -10,7 +10,8 @@
 
 function returnObjectLiteral() {
   //your code here
-  return undefined; //Modify ONLY this line
+  var snacks = {type:"Goldfish", brand:"Pepperidge Farm", flavor:"Cheddar", count:2000};
+  return snacks; //Modify ONLY this line
   //end your code
 }
 
@@ -38,7 +39,55 @@ function returnObjectLiteral() {
 */
 
 //your code here
+function MessageLog(user) {
 
+	this.user = user;
+	// array to store messages
+	var messSent = [];
+	var messRec;
+	// counts to return in last two functions
+	var numSent = 0;
+	var numRec = 0;
+
+	this.logMessage = function(messageText, direction) {
+		if (direction === 0) {
+			if (numSent < 5) {
+				// unshift puts value at beginning of array each time, opposite of push
+				messSent.unshift(messageText);
+			}
+			else {
+				// remove last element via pop
+				messSent.pop();
+				// add newest element via unshift
+				messSent.unshift(messageText);
+			}
+			numSent++;
+		}
+		if (direction == 1) {
+			// no array needed to store, because you only need to return the latest
+			messRec = messageText;
+			numRec++;
+		}
+
+	};
+
+	this.getSentMessage = function(n) {
+		if (n > 5) {
+			return;
+		}
+		else {
+			return messSent[n];	
+		}
+	};
+
+	this.totalSent = function() {
+		return numSent;
+	};
+
+	this.totalReceived = function() {
+		return numRec;
+	};
+}
 //end your code
 
 /**
@@ -47,7 +96,9 @@ function returnObjectLiteral() {
 * received.
 */
 //your code here
-
+MessageLog.lastReceivedMessage = function() {
+	return messRec;
+};
 //end your code
 
 /**
@@ -57,5 +108,8 @@ function returnObjectLiteral() {
 */
 
 //your code here
-
+var myLog = new MessageLog("BlackHatGuy");
+myLog.logMessage("foo", 1);
+myLog.logMessage("bar", 1);
+myLog.logMessage("baz", 1);
 //end your code
