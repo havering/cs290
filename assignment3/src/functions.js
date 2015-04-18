@@ -39,11 +39,13 @@ var bar = function(doubleArray) {
     
 
 	for (var i = 0.0; i < doubleArray.length; i++) {
-    	doubleArray[i] = doubleArray[i] * 2;
-   	 
+    	 
     	if (typeof doubleArray[i] != 'number') {
         	success = false;
         	return success;
+    	}
+    	else {
+    		doubleArray[i] = doubleArray[i] * 2;
     	}
    	 
 	}
@@ -85,5 +87,34 @@ function GitLog(hash, date, message) {
 */
 
 //your code here
+function parseGit(logArray) {
+	var tempArray = [];
 
+	for (var i = 0; i < logArray.length; i++) {
+		// split syntax - the value to trigger the split, the number of
+		// times to allow it to split before stopping
+		// creates an array of the values if split multiple times before stopping
+		// hashLine is split after the first space and then stops
+		var hashLine = logArray[i].split(" ", 1);
+		// 7 spaces between start of string and commit message
+		var splitDate = logArray[i].split(" ", 7);
+		// splitDate is now an array with 6 values
+		// [hash, day, date, month, year, time]
+		var dateLine;
+		// skips hash, concatenates remainder of values into dateLine
+		for (var j = 1; j < splitDate.length; j++) {
+			dateLine = splitDate[j] + " ";
+		}
+		// splits after ", capturing commit message
+		var splitMessage = logArray[i].split("\"");
+		// splitMessage is now an array with two values
+		// the first parts to be discarded, and the remainining commit message
+		var messageLine = splitMessage[1];
+		// use function to create GitLog class with above data in position i of logArray
+		var newGit = new GitLog(hashLine, dateLine, messageLine);
+
+		tempArray.push(newGit);
+	}
+	return tempArray;
+}
 //end your code
