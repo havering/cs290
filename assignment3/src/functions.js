@@ -13,6 +13,10 @@
 */
 
 //your code here
+function uselessFunction() {
+	var useless = null;
+	return useless;
+}
 
 //end your code
 
@@ -30,6 +34,21 @@ var barType = typeof bar;
 */
 
 //your code here
+var bar = function(doubleArray) {
+	var success = true;
+    
+
+	for (var i = 0.0; i < doubleArray.length; i++) {
+    	doubleArray[i] = doubleArray[i] * 2;
+   	 
+    	if (typeof doubleArray[i] != 'number') {
+        	success = false;
+        	return success;
+    	}
+   	 
+	}
+	return success;
+};
 
 //end your code
 
