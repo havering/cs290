@@ -96,8 +96,8 @@ function MessageLog(user) {
 * received.
 */
 //your code here
-MessageLog.lastReceivedMessage = function() {
-	return messRec;
+MessageLog.prototype.lastReceivedMessage = function() {
+	return this.messRec;
 };
 //end your code
 
