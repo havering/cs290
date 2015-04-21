@@ -107,9 +107,10 @@ function parseGit(logArray) {
 		// the first parts to be discarded, and the remainining commit message
 		var messageLine = splitMessage[1];
 		// use function to create GitLog class with above data in position i of logArray
-		var newGit = new GitLog(hashLine[0], date, messageLine);
+		var newGit = new GitLog(hashLine, date, messageLine);
 
 		tempArray.push(newGit);
+	
 	}
 	return tempArray;
 }

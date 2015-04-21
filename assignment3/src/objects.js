@@ -63,6 +63,9 @@ function MessageLog(user) {
 			}
 			numSent++;
 		}
+		if (direction === 1) {
+			messRec = messageText;
+		}
 		if (direction == 1) {
 			// no array needed to store, because you only need to return the latest
 			messRec = messageText;
@@ -87,6 +90,10 @@ function MessageLog(user) {
 	this.totalReceived = function() {
 		return numRec;
 	};
+
+	this.getRec = function() {
+		return messRec;
+	}
 }
 //end your code
 
@@ -97,8 +104,10 @@ function MessageLog(user) {
 */
 //your code here
 MessageLog.prototype.lastReceivedMessage = function() {
-	return this.messRec;
+	return this.getRec();
 };
+
+var newMess = new MessageLog();
 //end your code
 
 /**
