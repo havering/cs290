@@ -105,7 +105,6 @@ MessageLog.prototype.lastReceivedMessage = function() {
 	return this.getRec();
 };
 
-var newMess = new MessageLog();
 //end your code
 
 /**
