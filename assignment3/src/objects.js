@@ -63,9 +63,7 @@ function MessageLog(user) {
 			}
 			numSent++;
 		}
-		if (direction === 1) {
-			messRec = messageText;
-		}
+		
 		if (direction == 1) {
 			// no array needed to store, because you only need to return the latest
 			messRec = messageText;
