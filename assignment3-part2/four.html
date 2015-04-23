@@ -7,19 +7,26 @@
 </head>
 <body>
 		<h2>Gist Search</h2>
-		<form>
+		<form id="gist-search">
+			<div>
 			<p>How many pages of results to display? 
 				<input type="number" name="numPages" max="5">
+			</div>
+			<div>
 			<p>What languages to display? 
-				<br><input type="checkbox" value="python">Python
-				<br><input type="checkbox" value="json">JSON
-				<br><input type="checkbox" value="javascript">JavaScript
-				<br><input type="checkbox" value="sql">SQL
-			<p><input type="button" value="Search">
+				<br><input type="checkbox" value="python" name="language" id="python">Python
+				<br><input type="checkbox" value="json" name="language" id="json">JSON
+				<br><input type="checkbox" value="javascript" name="language" id="javascript">JavaScript
+				<br><input type="checkbox" value="sql" name="language" id="sql">SQL
+			</div>
+			<div>
+			<p><input type="button" value="Search" id="searchButton">
+			</div>
 				<!--worry about a reset button later-->
 
 		</form>
 
-
+	<!--this section to display gist results-->
+	<div id="results"></div>
 </body>
 </html>
