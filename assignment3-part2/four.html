@@ -8,16 +8,23 @@
 <body>
 		<h2>Gist Search</h2>
 		<form id="gist-search">
-			<div>
+			<div id="pageNum">
 			<p>How many pages of results to display? 
-				<input type="number" name="numPages" max="5">
+				<dd>
+				<input type="radio" value="1" name="pages">1<br> 
+				<input type="radio" value="2" name="pages">2<br>
+				<input type="radio" value="3" name="pages">3<br>
+				<input type="radio" value="4" name="pages">4<br>
+				<input type="radio" value="5" name="pages">5<br></dd>
 			</div>
 			<div>
 			<p>What languages to display? 
-				<br><input type="checkbox" value="python" name="language" id="python">Python
+				<dd>
+				<input type="checkbox" value="python" name="language" id="python">Python
 				<br><input type="checkbox" value="json" name="language" id="json">JSON
 				<br><input type="checkbox" value="javascript" name="language" id="javascript">JavaScript
 				<br><input type="checkbox" value="sql" name="language" id="sql">SQL
+			</dd>
 			</div>
 			<div>
 			<p><input type="button" value="Search" id="searchButton">
@@ -28,5 +35,6 @@
 
 	<!--this section to display gist results-->
 	<div id="results"></div>
+	<div id="page"></div>
 </body>
 </html>

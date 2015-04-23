@@ -1,15 +1,26 @@
 window.onload = function() {
 	
 	document.getElementById("searchButton").onclick = function() { 
-		
-		getGists("four.html"); 
+		var pages = document.getElementsByName("pages");
+		var pageNum;
+
+		for (var i = 0; i < pages.length; i++) {
+			if (pages[i].checked) {
+				pageNum = pages[i].value;
+				// no need to search the rest, only one can be selected
+				break;
+			}
+		}
+
+		document.getElementById("page").innerHTML = "Using " + pageNum + " pages.";
+		getGists("four.html", pageNum); 
 
 	};
 
-}
+};
 
 
-function getGists(url) {
+function getGists(url, pageNum) {
 	var req;
 
 	if (window.XMLHttpRequest) {  // modern browsers
