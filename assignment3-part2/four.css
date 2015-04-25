@@ -2,3 +2,10 @@ body {
 	font-family: sans-serif;
 }
 
+#gists {
+	float: left;
+}
+
+#faves {
+	float: right;
+}

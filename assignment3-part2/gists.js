@@ -79,22 +79,50 @@ window.onload = function() {
 function createOutput(parsed) {
 
 	var currentDiv = document.getElementById('gists');
+
+	var tbl = document.createElement("table");
+	var tblBody = document.createElement("tbody");
 	
 
 	for (var i = 0; i < parsed.length; i++) {
+		var row = document.createElement("tr");
+
 		var gistContent1 = document.createTextNode("Description: " + parsed[i].description);
-		var gistContent2 = document.createTextNode("URL: " + parsed[i].url + "\r\n");
+		var gistContent2 = document.createTextNode("URL: " + parsed[i].url);
 		var spacer1 = document.createElement('br');
 		var spacer2 = document.createElement('p');
+		var spacer3 = document.createElement('br');
+		var btn = document.createElement("button");
+		var btnText = document.createTextNode("Add to Favorites");
+		btn.appendChild(btnText);
+		
+		btn.onclick = function() {
+			alert("Adding to faves");
+		}
 
-		currentDiv.appendChild(spacer2);
-		currentDiv.appendChild(gistContent1);
-		currentDiv.appendChild(spacer1);
-		currentDiv.appendChild(gistContent2);
+		for (var j = 0; j < 1; j++) {
+			var cell = document.createElement("td");
+			cell.style.backgroundColor="#3399FF";
 
+			cell.appendChild(gistContent1);
+			cell.appendChild(spacer1);
+			cell.appendChild(gistContent2);
+			cell.appendChild(spacer3);
+			cell.appendChild(btn);
+
+			row.appendChild(cell);
+		}
+		tblBody.appendChild(row);
+		tblBody.appendChild(spacer2);
 	}
+	tbl.appendChild(tblBody);
+
+	currentDiv.appendChild(tbl);
+
+	
 
 }
+
 
 
 };
