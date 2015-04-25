@@ -63,59 +63,36 @@ window.onload = function() {
 			console.log("Waiting for loading to complete.");
 		}
 
-		// don't worry about this right now
-		// extra credit if you get there
-		/*var sortedGists = [];
-		
-		if (langs !== null) {
-			for (var j = 0; j < langs.length; j++) {
-			// then loop through parsed to compare languages selected with languages offered
-			for (var i = 0; i < parsed.length; i++) {
-					for (language in parsed[i]) {
-						console.log("Parsed[i]: " + parsed[i].language);
-						console.log("Langs[j]:" + langs[j]);
-						if (parsed[i].language == langs[j]) {
-							// if the language matches, push to new array
-
-							sortedGists.push(parsed[i]);
-						}
-					}
-				}
-			}
-		}
-			
-		else {
-			console.log("Lang is null");
-		}
-		
-		var size = sortedGists.length;
-		console.log("Size of sorted: " + size);
-		createOutput(sortedGists);
-	*/
-
 	createOutput(parsed);
 	};
+
+	var perPage = pageNum * 30;
+
+	// array holds a max of 100 objects
+	// FIX THIS need to break apart into multiple arrays for more than 100 objects??
+	req.open('GET', 'https://api.github.com/gists/public?per_page=' + perPage, true);
 	
-	req.open('GET', 'https://api.github.com/gists/public?page=' + pageNum, true);
 	req.send(null);
 
 }
 
-	function createOutput(parsed) {
-	var creation = document.createElement("div");
-	var spacer = document.createElement("br");
+function createOutput(parsed) {
+
+	var currentDiv = document.getElementById('gists');
+	
 
 	for (var i = 0; i < parsed.length; i++) {
 		var gistContent1 = document.createTextNode("Description: " + parsed[i].description);
 		var gistContent2 = document.createTextNode("URL: " + parsed[i].url + "\r\n");
-	
-		creation.appendChild(gistContent1);
-		creation.appendChild(gistContent2);
+		var spacer1 = document.createElement('br');
+		var spacer2 = document.createElement('p');
+
+		currentDiv.appendChild(spacer2);
+		currentDiv.appendChild(gistContent1);
+		currentDiv.appendChild(spacer1);
+		currentDiv.appendChild(gistContent2);
 
 	}
-
-	var currentDiv = document.getElementById("gists");
-	document.body.insertBefore(creation, currentDiv);
 
 }
 
