@@ -55,7 +55,7 @@ function makeHTML(gistObject) {
 	}
 	
 	var url = document.createElement('div');
-	url.innerHTML = '<a href="' +gistObject.url + '">' + gistObject.url + '</a>';
+	url.innerHTML = '<a href="' +gistObject.html_url + '">' + gistObject.html_url + '</a>';
 
 	var id = document.createElement('div');
 	id.setAttribute('id', gistObject.id);
@@ -72,6 +72,7 @@ function makeHTML(gistObject) {
 		localStorage.removeItem('gistList', JSON.stringify(toBeFavoredGist));
 		counter++;
 		displayFav(counter);
+		htmlGist.remove();
  	};
 
 	var htmlGist = document.createElement('div');
@@ -100,11 +101,12 @@ function displayFav(counter) {
 }
 
 function favHTML(favObject) {
-	var desc = document.createElement('div');
-	desc.setAttribute('id', 'desc');
 	var finding = JSON.parse(localStorage.getItem('favList'));
 
-	if (favObject.description === null) {
+	var desc = document.createElement('div');
+	desc.setAttribute('id', 'desc');
+
+	if (favObject.description === null || favObject.description.length === 0) {
 		desc.innerHTML = "No description!";
 	}
 	else {
@@ -114,31 +116,28 @@ function favHTML(favObject) {
 	var url = document.createElement('div');
 	url.innerHTML = '<a href="' +favObject.url + '">' + favObject.url + '</a>';
 
-	var id = document.createElement('div');
-	id.setAttribute('id', favObject.id);
-
 	var rbutton = document.createElement('button');
 	rbutton.innerHTML = "-";
 	rbutton.setAttribute('gistId', favObject.id);
 
 	rbutton.onclick = function() {
+
 		var gistId = this.getAttribute('gistId'); 
 		var toBeRemovedGist = findById(gistId, finding);
 		localStorage.removeItem('favList', JSON.stringify(toBeRemovedGist));
-		counter--;
-		displayFav(counter);
+		favGist.remove();
  	};
 
-	var htmlFav = document.createElement('div');
+	var favGist = document.createElement('div');
+	favGist.setAttribute('id', favObject.id);
 	var spacer = document.createElement('p');
 
-	htmlFav.appendChild(desc);
-	htmlFav.appendChild(url);
-	htmlFav.appendChild(id);
-	htmlFav.appendChild(spacer);
+	favGist.appendChild(rbutton);
+	favGist.appendChild(desc);
+	favGist.appendChild(url);
+	favGist.appendChild(spacer);
 
-
-	return htmlFav;
+	return favGist;
 }
 
 function findById(gistId, finding) {
