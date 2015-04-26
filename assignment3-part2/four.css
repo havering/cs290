@@ -9,3 +9,9 @@ body {
 #faves {
 	float: right;
 }
+
+td {
+	background-color: #3399FF;
+	border-radius: 5px;
+	width: 400px;
+}

@@ -8,14 +8,8 @@
 <body>
 		<h2>Gist Search</h2>
 		<form id="gist-search">
-			<div id="pageNum">
-			<p>How many pages of results to display? 
-				<dd>
-				<input type="radio" value="1" name="pages">1<br> 
-				<input type="radio" value="2" name="pages">2<br>
-				<input type="radio" value="3" name="pages">3<br>
-				<input type="radio" value="4" name="pages">4<br>
-				<input type="radio" value="5" name="pages">5<br></dd>
+			<div id="pageQuery">
+			<span>How many pages of results to display?</span> <input type="number" min="1" max="5" placeholder="Enter 1 through 5" id="pageNum" name="pageNum">
 			</div>
 			<div>
 			<p>What languages to display? <i>(optional)</i>
@@ -27,16 +21,13 @@
 			</dd>
 			</div>
 			<div>
-			<p><input type="button" value="Search" id="searchButton">
+			<p><input type="button" value="Search" id="searchButton" onclick="searchMe()">
 			</div>
 				<!--worry about a reset button later-->
 
 		</form>
 
 	<!--this section to display gist results-->
-	<div id="results"></div>
-	<div id="page"></div>
-	<div id="lang"></div>
 	<div id="gists"></div>
 	<div id="faves"></div>
 </body>
