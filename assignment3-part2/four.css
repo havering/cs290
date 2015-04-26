@@ -17,9 +17,13 @@ body {
 	border-radius: 5px;
 }
 
-#spacer {
+#id {
 	float: left;
-	padding: 50px;
+	margin-right: 3px;
+}
+
+#desc {
+	float: left;
 }
 
 td {
