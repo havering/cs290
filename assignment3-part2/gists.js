@@ -31,7 +31,6 @@ function loadGists() {
 	var parsed = JSON.parse(localStorage.getItem('gistList'));
 	// to store html coded gists
 	var gistSide = document.getElementById('gists');
-	var favSide = document.getElementById('faves');
 
 	for (var i = 0; i < parsed.length; i++) {
 		var output = makeHTML(parsed[i]);
@@ -39,21 +38,16 @@ function loadGists() {
 		gistSide.appendChild(output);
 	}
 
-	var faveList = JSON.parse(localStorage.getItem('favList'));
-
-	for (var j = 0; j < faveList.length; j++) {
-		var posted = makeHTML(faveList[j]);
-
-		favSide.appendChild(posted);
-	}
 }
 
 function makeHTML(gistObject) {
+	var counter = 0;
+	var finding = JSON.parse(localStorage.getItem('gistList'));
 
 	var desc = document.createElement('div');
 	desc.setAttribute('id', 'desc');
 
-	if (gistObject.description === null) {
+	if (gistObject.description === null || gistObject.description.length === 0) {
 		desc.innerHTML = "No description!";
 	}
 	else {
@@ -68,15 +62,17 @@ function makeHTML(gistObject) {
 
 	var fbutton = document.createElement('button');
 	fbutton.innerHTML = "+";
-	fbutton.setAttribute("gistId", gistObject.id);
+	fbutton.setAttribute('gistId', gistObject.id);
 
 	fbutton.onclick = function() {
-		var gistId = this.getAttribute("gistId"); //this is what you have saved before
-		var toBeFavoredGist = findById(gistId);
-		localStorage.setItem('favList', toBeFavoredGist);
-		localStorage.removeItem('gistList', toBeFavoredGist);
-	//here you add the gist to your favorite list in the localStorage and remove it from the gist list and add it to favorite list
-	};
+
+		var gistId = this.getAttribute('gistId'); 
+		var toBeFavoredGist = findById(gistId, finding);
+		localStorage.setItem('favList', JSON.stringify(toBeFavoredGist));
+		localStorage.removeItem('gistList', JSON.stringify(toBeFavoredGist));
+		counter++;
+		displayFav(counter);
+ 	};
 
 	var htmlGist = document.createElement('div');
 	var spacer = document.createElement('p');
@@ -90,8 +86,62 @@ function makeHTML(gistObject) {
 	return htmlGist;
 }
 
-function findById(gistId) {
-	var finding = JSON.parse(localStorage.getItem('gistList'));
+function displayFav(counter) {
+
+	var faveList = JSON.parse(localStorage.getItem('favList'));
+	var favSide = document.getElementById('faves');
+
+	for (var j = 0; j < counter; j++) {
+		var posted = favHTML(faveList);
+
+		favSide.appendChild(posted);
+	}
+
+}
+
+function favHTML(favObject) {
+	var desc = document.createElement('div');
+	desc.setAttribute('id', 'desc');
+	var finding = JSON.parse(localStorage.getItem('favList'));
+
+	if (favObject.description === null) {
+		desc.innerHTML = "No description!";
+	}
+	else {
+		desc.innerHTML = favObject.description;
+	}
+	
+	var url = document.createElement('div');
+	url.innerHTML = '<a href="' +favObject.url + '">' + favObject.url + '</a>';
+
+	var id = document.createElement('div');
+	id.setAttribute('id', favObject.id);
+
+	var rbutton = document.createElement('button');
+	rbutton.innerHTML = "-";
+	rbutton.setAttribute('gistId', favObject.id);
+
+	rbutton.onclick = function() {
+		var gistId = this.getAttribute('gistId'); 
+		var toBeRemovedGist = findById(gistId, finding);
+		localStorage.removeItem('favList', JSON.stringify(toBeRemovedGist));
+		counter--;
+		displayFav(counter);
+ 	};
+
+	var htmlFav = document.createElement('div');
+	var spacer = document.createElement('p');
+
+	htmlFav.appendChild(desc);
+	htmlFav.appendChild(url);
+	htmlFav.appendChild(id);
+	htmlFav.appendChild(spacer);
+
+
+	return htmlFav;
+}
+
+function findById(gistId, finding) {
 
 	for (var i = 0; i < finding.length; i++) {
 		if (finding[i].id === gistId) {

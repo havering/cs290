@@ -26,10 +26,9 @@ body {
 	float: left;
 }
 
-td {
+button {
+	border-radius: 50%;
 	background-color: #3399FF;
-	border-radius: 5px;
-	width: 400px;
 }
 
 h3 {
