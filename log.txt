@@ -1,0 +1,34 @@
+4/17/2015
+2:30 pm - 4:30 pm
+Started functions
+
+4/18/2015
+2:30 pm - 6:40 pm
+Wrote remainder of functions, plus objects and variables
+
+4/19/2015 
+6:00 pm - 6:45 pm
+Testing, editing functions, objects, and variables
+
+4/21/2015
+6:30 pm - 9:45 pm
+Toggling github structure, correcting errors in functions and objects
+
+4/22/2015
+6:15 pm - 9:15 pm
+More github structure toggling, created HTML for part 2, made an attempt at JavaScript functionality
+
+4/23/2015
+5:30 pm - 9:30 pm
+
+Fixed access to number of pages and languages. Corrected call to github API to correctly retrieve JSON response. Parsed JSON. Extensive amount of time manipulating for loops to try to match languages selected with languages retrieved.
+
+4/25/2015
+11:30 am - 3:00 pm
+Attempted additional functionality of JavaScript. Lots of bad ideas, apparently, not very much success.
+
+4/26/2015
+8:00 am - 2:00 pm
+Troubleshooting adding favorites
+3:30 pm - 9:30 pm
+Additional work trying to add more than one favorite
