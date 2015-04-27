@@ -85,6 +85,11 @@ function makeHTML(gistObject) {
 		var faveListObj = JSON.parse(localStorage.getItem('favList'));
 		faveListObj.favList.push(toBeFavoredGist);
 		localStorage.setItem('favList', JSON.stringify(faveListObj));
+<<<<<<< HEAD
+=======
+		//localStorage.removeItem('gistList', JSON.stringify(toBeFavoredGist));
+		//displayFav();
+>>>>>>> f5db243ae1ef4d21368dbe539933a5d3d726db99
 		addToFavList(toBeFavoredGist);
 		htmlGist.remove();
  	};
@@ -120,15 +125,21 @@ function displayFav() {
 	}
 }
 
+<<<<<<< HEAD
 /**Separate function to add favorites to HTML output**/
+=======
+>>>>>>> f5db243ae1ef4d21368dbe539933a5d3d726db99
 function addToFavList(newGist) {
 	var favSide = document.getElementById('faves');
 	var posted = favHTML(newGist);
 	favSide.appendChild(posted);
 }
 
+<<<<<<< HEAD
 /**Same functionality as makeHTML, but with remove button instead of add**/
 /**Previous version corrected by Prof Ghorashi**/
+=======
+>>>>>>> f5db243ae1ef4d21368dbe539933a5d3d726db99
 function favHTML(favObject) {
 	var finding = JSON.parse(localStorage.getItem('favList'));
 
