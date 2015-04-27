@@ -13,7 +13,7 @@ function getGists(pages) {
 			localStorage.setItem('gistList', response);
 			loadGists();
 		}
-	}
+	};
 	var url = 'https://api.github.com/gists?per_page=';
 	var perPage = pages * 30;
 
@@ -21,10 +21,20 @@ function getGists(pages) {
 	req.send();
 }
 
+window.onload = function() {
+	displayFav();
+};
+
 function searchMe() {
 	var pageField = document.getElementById('pageNum');
 	var pageValue = pageField.value;
-	getGists(pageValue);
+
+	if (pageValue < 1 || pageValue > 5) {
+		alert("Enter a value between 1 and 5!");
+	}
+	else {
+		getGists(pageValue);
+	}
 }
 
 function loadGists() {
@@ -37,11 +47,9 @@ function loadGists() {
 
 		gistSide.appendChild(output);
 	}
-
 }
 
 function makeHTML(gistObject) {
-	var counter = 0;
 	var finding = JSON.parse(localStorage.getItem('gistList'));
 
 	var desc = document.createElement('div');
@@ -68,10 +76,11 @@ function makeHTML(gistObject) {
 
 		var gistId = this.getAttribute('gistId'); 
 		var toBeFavoredGist = findById(gistId, finding);
-		localStorage.setItem('favList', JSON.stringify(toBeFavoredGist));
-		localStorage.removeItem('gistList', JSON.stringify(toBeFavoredGist));
-		counter++;
-		displayFav(counter);
+		var faveList = JSON.parse(localStorage.getItem('favList'));
+		faveList.push(toBeFavoredGist);
+		localStorage.setItem('favList', JSON.stringify(faveList));
+		//localStorage.removeItem('gistList', JSON.stringify(toBeFavoredGist));
+		displayFav();
 		htmlGist.remove();
  	};
 
@@ -87,17 +96,20 @@ function makeHTML(gistObject) {
 	return htmlGist;
 }
 
-function displayFav(counter) {
-
-	var faveList = JSON.parse(localStorage.getItem('favList'));
+function displayFav() {
 	var favSide = document.getElementById('faves');
+	var faveList = localStorage.getItem('favList');
 
-	for (var j = 0; j < counter; j++) {
-		var posted = favHTML(faveList);
-
-		favSide.appendChild(posted);
+	if (faveList === null){
+		faveList = [];
+		localStorage.setItem('favList', faveList);
+	} else {
+		//otherwise there is an array of favorites already there and you have to display them one by one
+		for(var i=0;i < faveList.length; i++){
+			var posted = favHTML(faveList[i]);
+			favSide.appendChild(posted);
+		}
 	}
-
 }
 
 function favHTML(favObject) {
@@ -114,7 +126,7 @@ function favHTML(favObject) {
 	}
 	
 	var url = document.createElement('div');
-	url.innerHTML = '<a href="' +favObject.url + '">' + favObject.url + '</a>';
+	url.innerHTML = '<a href="' +favObject.html_url + '">' + favObject.html_url + '</a>';
 
 	var rbutton = document.createElement('button');
 	rbutton.innerHTML = "-";
