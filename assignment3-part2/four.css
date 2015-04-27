@@ -2,19 +2,17 @@ body {
 	font-family: sans-serif;
 }
 
-#gists {
+#gists, #faves {
+	min-height: 100px;
 	float: left;
-	width: 49%;
+	width: 48%;
 	background-color: #E6E6E6;
 	border-radius: 5px;
-	margin-right: 20px;
+	padding: 10px;
 }
 
 #faves {
 	float: right;
-	width: 49%;
-	background-color: #E6E6E6;
-	border-radius: 5px;
 }
 
 #id {
