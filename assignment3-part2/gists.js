@@ -73,14 +73,14 @@ function makeHTML(gistObject) {
 	fbutton.setAttribute('gistId', gistObject.id);
 
 	fbutton.onclick = function() {
-
 		var gistId = this.getAttribute('gistId'); 
 		var toBeFavoredGist = findById(gistId, finding);
-		var faveList = JSON.parse(localStorage.getItem('favList'));
-		faveList.push(toBeFavoredGist);
-		localStorage.setItem('favList', JSON.stringify(faveList));
+		var faveListObj = JSON.parse(localStorage.getItem('favList'));
+		faveListObj.favList.push(toBeFavoredGist);
+		localStorage.setItem('favList', JSON.stringify(faveListObj));
 		//localStorage.removeItem('gistList', JSON.stringify(toBeFavoredGist));
-		displayFav();
+		//displayFav();
+		addToFavList(toBeFavoredGist);
 		htmlGist.remove();
  	};
 
@@ -98,18 +98,25 @@ function makeHTML(gistObject) {
 
 function displayFav() {
 	var favSide = document.getElementById('faves');
-	var faveList = localStorage.getItem('favList');
+	var faveListString = localStorage.getItem('favList'), faveListObj;
 
-	if (faveList === null){
-		faveList = [];
-		localStorage.setItem('favList', faveList);
+	if (faveListString === null){
+		faveListObj = {"favList":[]};
+		localStorage.setItem('favList', JSON.stringify(faveListObj));
 	} else {
-		//otherwise there is an array of favorites already there and you have to display them one by one
-		for(var i=0;i < faveList.length; i++){
-			var posted = favHTML(faveList[i]);
+		favSide.innerHTML = "<h3>Favorites</h3>";
+		faveListObj = JSON.parse(faveListString);
+		for(var i=0;i < faveListObj.favList.length; i++){
+			var posted = favHTML(faveListObj.favList[i]);
 			favSide.appendChild(posted);
 		}
 	}
+}
+
+function addToFavList(newGist) {
+	var favSide = document.getElementById('faves');
+	var posted = favHTML(newGist);
+	favSide.appendChild(posted);
 }
 
 function favHTML(favObject) {
@@ -133,11 +140,17 @@ function favHTML(favObject) {
 	rbutton.setAttribute('gistId', favObject.id);
 
 	rbutton.onclick = function() {
-
 		var gistId = this.getAttribute('gistId'); 
-		var toBeRemovedGist = findById(gistId, finding);
-		localStorage.removeItem('favList', JSON.stringify(toBeRemovedGist));
-		favGist.remove();
+		var toBeRemovedGist = findById(gistId, finding.favList);
+		var faveListObj = JSON.parse(localStorage.getItem("favList"));
+		for(var i =0; i < faveListObj.favList.length; i++) {
+			if(faveListObj.favList[i].id === toBeRemovedGist.id){
+				faveListObj.favList.splice(i, 1);
+				break;
+			}
+		}
+		localStorage.setItem('favList', JSON.stringify(faveListObj));
+		this.parentNode.remove();
  	};
 
 	var favGist = document.createElement('div');
