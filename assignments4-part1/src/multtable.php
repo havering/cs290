@@ -3,7 +3,7 @@ echo '<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title></title>
+<title>Results</title>
 </head>
 <body>';
 
@@ -47,18 +47,30 @@ $can = $_GET['minCand'];
 if ($reachEnd == true) {
 	// table creation
 	echo '<p>Multiplication table
-	<table border="1">
-	<tr>
-	<td>';
-
-	for ($i = 0; $i < $wide - 1; $i++) {
-		echo '<td>' . $min;
-		$min++;
-	}
-	for ($j = 0; $j < $tall; $j++) {
-			echo '<tr><td>' . $can;
-			$can++;
-		}
+	<table style="text-align: center; border: 1px solid">';
+		// start from 1 instead of 0 so you don't have to do more math in the cells
+		for ($i = 1; $i <= $tall; $i++) {  
+			echo '<tr>';
+			
+			for ( $j = 1 ; $j <= $wide ; $j++) { 
+				// blank space in top lefthand side
+				if (($i == 1) && ($j == 1)){
+					echo '<td></td>'; }
+				// top row/table header
+				else if (($i == 1) && ($j > 1)){
+					echo '<th>' . ($min + ($j-2)); 
+				}
+				// lefthand column
+				else if (($j == 1) && ($i > 1)){
+					echo '<th>' . ($can + ($i-2)). '</th>'; 
+				}
+				// the remainder of the cells
+  			else if (($j > 1) && ($i > 1)){
+  					echo '<td>' . ( ($min + ($j-2)) * ($can + ($i-2)) ) . '</td>'; 
+  				}
+ 			}  
+  			echo '</tr>';  
+ 	 	} 
 	
 		echo '</table>';
 	}
