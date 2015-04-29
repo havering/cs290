@@ -3,22 +3,25 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 header('Content-type: text/plain');
 
+
+
 if ($_SERVER['REQUEST_METHOD'] == $_POST) {
-	$_POST['Type'] = 'POST';
-	if (empty($_POST['parameters'])) {
-		$_POST['parameters'] = 'null';
+	if (empty($_POST)) {
+		$_POST['parameters'] = null;
 	}
-	$poster = json_encode($_POST);
-	echo $poster;
+	$_POST['Type'] = 'POST';
+	//$poster = json_encode($_POST);
+	echo json_encode($_POST);
 }
 else if ($_SERVER['REQUEST_METHOD'] == $_GET) {
-	$_GET['Type'] = 'GET';
-	if (empty($_GET['parameters'])) {
-		$_GET['parameters'] = 'null';
+	if (empty($_GET)) {
+		$_GET['parameters'] = null;
 	}
-	$getter = json_encode($_GET);
-	echo $getter;
+	$_GET['Type'] = 'GET';
+	//$getter = json_encode($_GET);
+	echo json_encode($_GET);
 }
-
+echo json_encode($_GET);
+echo json_encode($_POST);
 
 ?>
