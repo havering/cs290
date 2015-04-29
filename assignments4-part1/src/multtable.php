@@ -66,8 +66,8 @@ if ($reachEnd == true) {
 				}
 				// the remainder of the cells
   			else if (($j > 1) && ($i > 1)){
-  					echo '<td>' . ( ($min + ($j-2)) * ($can + ($i-2)) ) . '</td>'; 
-  				}
+  				echo '<td>' . ( ($min + ($j-2)) * ($can + ($i-2)) ) . '</td>'; 
+  			}
  			}  
   			echo '</tr>';  
  	 	} 
