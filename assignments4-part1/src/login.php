@@ -5,6 +5,6 @@
 </head>
 <body>
 	<form action="content1.php" method="POST">
-		<p>Enter a username: <input type="text">
+		<p>Enter a username: <input type="text" name="username">
 		<p><input type="submit" value="Submit">
 	</form>
