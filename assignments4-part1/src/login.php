@@ -7,7 +7,8 @@
 	session_start();
 	// need to check for logout action in case user is directed here via content1 logout request
 	if(isset($_GET['action']) && $_GET['action'] == 'logout') {
-		session_unset();
+		session_unset($_SESSION['visits']);
+		session_unset($_SESSION['username']);
 		session_destroy();
 	}
 ?>
@@ -16,3 +17,6 @@
 		<p>Enter a username: <input type="text" name="username">
 		<p><input type="submit" value="Submit">
 	</form>
+
+</body>
+</html>
