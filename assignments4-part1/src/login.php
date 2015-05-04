@@ -9,6 +9,7 @@
 	if(isset($_GET['action']) && $_GET['action'] == 'logout') {
 		session_unset($_SESSION['visits']);
 		session_unset($_SESSION['username']);
+		session_unset($_SESSION['active']);
 		session_destroy();
 	}
 ?>
