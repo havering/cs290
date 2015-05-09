@@ -3,7 +3,7 @@
 	$host = 'oniddb.cws.oregonstate.edu';
 	$db = 'ohaverd-db';
 	$user = 'ohaverd-db';
-	$pw = 'deleted for git push';
+	$pw = 'qC27C4IKTHJTJEli';
 
 	$mysqli = new mysqli($host, $user, $pw, $db);
 	if ($mysqli->connect_errno) {
@@ -42,12 +42,14 @@
 <html>
 <head>
 	<title>Video Store</title>
+	<stylesheet rel="stylesheet" href="videos.css">
+	<script src="videos.js"></script>
 </head>
 <body>
 	
-<div name="form" method="GET" action="videos.php">
+<div id="addVid">
 	<h3>Welcome to the Video Store</h3>
-	<form name="addVid">
+	<form name="form" method="GET" action="videos.php">
 		<p>Name: <input type="text" name="vidName">
 		<p>Category: <input type="text" name="vidCat">
 		<p>Length: <input type="number" min="1" name="vidLen">
@@ -56,7 +58,36 @@
 
 <!--table display-->
 <?php
+	$query = "SELECT * FROM videos";
+
+	$newstmt = $mysqli->query($query);
+
+	echo "<table cellpadding=2>";
+	echo "<tr><td><b>Name</b></td><td><b>Category</b></td><td><b>Length</b></td><td><b>Rented?</b></td><td><b>Delete</b></td>";
+	while ($row = $newstmt->fetch_assoc()) {
+		echo "<tr>";
+		echo "<td>" . $row["name"] . "</td>";
+		echo "<td>" . $row["category"] . "</td>";
+		echo "<td>" . $row["length"] . "</td>";
+		if ($row["rented"] == 0) {
+			$resultRent = "Available";
+		}
+		else {
+			$resultRent = "Checked out";
+		}
+		echo "<td>" . $resultRent . "</td>";
+		$rowId = $row["id"];
+		echo '<td><button onclick="deleteRow()">Delete</button>';
+		echo "</tr>";
+	}
+	echo "</table>";
+
+	
+
+	$newstmt->close();
+
 
 ?>
+</div>
 </body>
 </html>
