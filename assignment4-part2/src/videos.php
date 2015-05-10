@@ -3,7 +3,7 @@
 	$host = 'oniddb.cws.oregonstate.edu';
 	$db = 'ohaverd-db';
 	$user = 'ohaverd-db';
-	$pw = 'delete for git push';
+	$pw = 'qC27C4IKTHJTJEli';
 
 	$mysqli = new mysqli($host, $user, $pw, $db);
 	if ($mysqli->connect_errno) {
@@ -78,7 +78,7 @@
 		echo "<td>" . $resultRent . "</td>";
 		$rowId = $row["id"];
 		echo '<td><form action="delete.php" method="POST">';
-		echo '<input type="hidden" name="id" value="<?php echo $rowId ?>">';
+		echo '<input type="hidden" name="id" value="' . $rowId . '">';
 		echo '<input type="submit" value="Delete"></form>';
 		echo "</tr>";
 	}
