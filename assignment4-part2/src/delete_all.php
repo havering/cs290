@@ -9,14 +9,10 @@
 		echo 'Failed to connect to MySQLi: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error;
 	}
 
-	$id = $_POST['id'];
-
-	if (!($stmt = $mysqli->prepare("DELETE FROM videos WHERE id=?"))) {
+	if (!($stmt = $mysqli->prepare("DELETE FROM videos"))) {
 		echo 'Prepare statement failed';
 	}
 	
-	$stmt->bind_param('i', $id);
-
 	if (!($stmt->execute())) {
 		echo 'Execute statement failed';
 	}

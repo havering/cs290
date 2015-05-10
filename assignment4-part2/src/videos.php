@@ -3,7 +3,7 @@
 	$host = 'oniddb.cws.oregonstate.edu';
 	$db = 'ohaverd-db';
 	$user = 'ohaverd-db';
-	$pw = 'qC27C4IKTHJTJEli';
+	$pw = 'delete for git push';
 
 	$mysqli = new mysqli($host, $user, $pw, $db);
 	if ($mysqli->connect_errno) {
@@ -63,7 +63,13 @@
 	$newstmt = $mysqli->query($query);
 
 	echo "<table cellpadding=2>";
-	echo "<tr><td><b>Name</b></td><td><b>Category</b></td><td><b>Length</b></td><td><b>Rented?</b></td><td><b>Delete</b></td>";
+	echo "<tr><td><b>Name</b></td>"; 
+	echo "<td><b>Category</b></td>";
+	echo "<td><b>Length</b></td>";
+	echo "<td><b>Rented?</b></td>";
+	echo "<td><b>Delete</b></td>";
+	echo "<td><b>Check In/Out</b></td>";
+
 	while ($row = $newstmt->fetch_assoc()) {
 		echo "<tr>";
 		echo "<td>" . $row["name"] . "</td>";
@@ -76,20 +82,28 @@
 			$resultRent = "Checked out";
 		}
 		echo "<td>" . $resultRent . "</td>";
+		// delete button
 		$rowId = $row["id"];
 		echo '<td><form action="delete.php" method="POST">';
 		echo '<input type="hidden" name="id" value="' . $rowId . '">';
 		echo '<input type="submit" value="Delete"></form>';
+		// check in or out button
+		$status = $row["rented"];
+		echo '<td align=center><form action="update.php" method="POST">';
+		echo '<input type="hidden" name="id" value="' . $rowId . '">';
+		echo '<input type="hidden" name="rented" value="' . $status . '">';
+		echo '<input type="submit" value="Update"></form>';
 		echo "</tr>";
 	}
 	echo "</table>";
-
-	
 
 	$newstmt->close();
 
 
 ?>
+<form action="delete_all.php" method="POST">
+	<p><input type="submit" value="Delete All Movies">
+</form>
 </div>
 </body>
 </html>
