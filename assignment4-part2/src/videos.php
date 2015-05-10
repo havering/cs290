@@ -3,7 +3,7 @@
 	$host = 'oniddb.cws.oregonstate.edu';
 	$db = 'ohaverd-db';
 	$user = 'ohaverd-db';
-	$pw = 'delete for git push';
+	$pw = 'deleted for git push';
 
 	$mysqli = new mysqli($host, $user, $pw, $db);
 	if ($mysqli->connect_errno) {
@@ -56,8 +56,33 @@
 		<p><input type="submit" value="Add movie">
 		</form>
 
+		<?php
+			
+			$filterquery = "SELECT DISTINCT category FROM videos";
+
+			$dropdown = "<form id='filter' name='filter' method='POST' action=''>
+			<p><label><b>Filter Table</b></label></p>
+			<select name='filter' id='filter'>";
+			// add in all movie option
+			$dropdown .= "<option>All Movies</option>";
+
+			$filter = $mysqli->query($filterquery);
+
+			while ($row = $filter->fetch_array(MYSQLI_ASSOC)) {
+				$dropdown .= "<option>" . $row['category'] . "</option>";
+			}
+
+			$dropdown .= "</select></form>";
+			
+			echo $dropdown;
+
+			 $filter->close();
+		?>
+		
+<br>
 <!--table display-->
 <?php
+
 	$query = "SELECT * FROM videos";
 
 	$newstmt = $mysqli->query($query);
@@ -104,6 +129,8 @@
 <form action="delete_all.php" method="POST">
 	<p><input type="submit" value="Delete All Movies">
 </form>
+
+
 </div>
 </body>
 </html>
