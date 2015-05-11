@@ -3,7 +3,7 @@
 	$host = 'oniddb.cws.oregonstate.edu';
 	$db = 'ohaverd-db';
 	$user = 'ohaverd-db';
-	$pw = 'delete for git push';
+	$pw = 'deleted for git push';
 
 	$mysqli = new mysqli($host, $user, $pw, $db);
 	if ($mysqli->connect_errno) {
@@ -15,11 +15,14 @@
 
 		// error handling from form
 		// need to make this more plain english at some point
-		foreach($_GET as $key => $value) {
-			if (empty($value)) {
-				echo '<p>Missing parameter ' . $key . ".";
-				$reachEnd = false;
-			}
+		if (!($_GET['vidName'])) {
+			echo '<p>Video name is a required field. Please enter the name of the video.';
+			$reachEnd = false;
+		}
+
+		if ($_GET['vidLen'] < 0) {
+			echo '<p>Video length must be greater than 0.';
+			$reachEnd = false;
 		}
 
 		if ($reachEnd) {
