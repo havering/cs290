@@ -1,0 +1,14 @@
+5/7/2015
+8:30 - 9:10
+
+Started assignment, not much accomplished aside from basic creation of files and rough structures
+
+5/9/2015
+10:30 am - 7:05 pm
+
+Added form, connected to database, added backend form validation. Created prepared statements and successfully output to table. Added buttons and delete redirect, delete button now works.
+
+5/10/2015
+10:00 am - 9:30 pm
+
+Checked in/out buttons working. Spent a TON of time trying to figure out how to a) create a dropdown menu with PHP and b) filter the output by that dropdown menu. Eventually succeeded. Revisited Piazza and found additional error handling that was needed, implemented that. Scrapped CSS because after 12 hours, there are bigger fish to fry.
