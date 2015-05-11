@@ -3,7 +3,7 @@
 	$host = 'oniddb.cws.oregonstate.edu';
 	$db = 'ohaverd-db';
 	$user = 'ohaverd-db';
-	$pw = 'delete for git push';
+	$pw = 'deleted for git push';
 
 	$mysqli = new mysqli($host, $user, $pw, $db);
 	if ($mysqli->connect_errno) {
@@ -25,7 +25,7 @@
 			$reachEnd = false;
 		}
 
-		if (!(is_numeric($_GET['vidLen']) && $_GET['vidLen'] != "")) {
+		if ($_GET['vidLen'] != "" && !(is_numeric($_GET['vidLen']) && $_GET['vidLen'] != 0)) {
 			echo '<p>Video length must be numeric input.';
 			$reachEnd = false;
 		}
