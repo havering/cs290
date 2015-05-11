@@ -3,7 +3,7 @@
 	$host = 'oniddb.cws.oregonstate.edu';
 	$db = 'ohaverd-db';
 	$user = 'ohaverd-db';
-	$pw = 'deleted for git push';
+	$pw = 'delete for git push';
 
 	$mysqli = new mysqli($host, $user, $pw, $db);
 	if ($mysqli->connect_errno) {
@@ -25,13 +25,26 @@
 			$reachEnd = false;
 		}
 
+		if (!(is_numeric($_GET['vidLen']) && $_GET['vidLen'] != "")) {
+			echo '<p>Video length must be numeric input.';
+			$reachEnd = false;
+		}
+
+		// if it passes all input validation
 		if ($reachEnd) {
 			
 			$stmt = $mysqli->prepare("INSERT INTO videos (name, category, length, rented) VALUES (?, ?, ?, ?)");
 			$stmt->bind_param('ssii', $vid, $cat, $len, $rented);
 
 			$vid = $_GET['vidName'];
-			$cat = $_GET['vidCat'];
+
+			if ($_GET['vidCat'] == "" || $_GET['vidCat'] == null) {
+				$cat = "Other";
+			}
+			else {
+				$cat = $_GET['vidCat'];
+			}
+
 			$len = $_GET['vidLen'];
 			$rented = 0;	// rented is false as it is just being added
 
@@ -46,7 +59,6 @@
 <html>
 <head>
 	<title>Video Store</title>
-	<stylesheet rel="stylesheet" href="videos.css">
 </head>
 <body>
 	
@@ -55,7 +67,7 @@
 	<form name="form" method="GET" action="videos.php">
 		<p>Name: <input type="text" name="vidName">
 		<p>Category: <input type="text" name="vidCat">
-		<p>Length: <input type="number" min="1" name="vidLen">
+		<p>Length: <input type="text" name="vidLen">
 		<p><input type="submit" value="Add movie">
 		</form>
 
@@ -98,7 +110,7 @@
 
 	$newstmt = $mysqli->query($query);
 
-	echo "<table cellpadding=2>";
+	echo "<table style='border-collapse: separate; border-spacing: 10px; border: 1px solid black'>";
 	echo "<tr><td><b>Name</b></td>"; 
 	echo "<td><b>Category</b></td>";
 	echo "<td><b>Length</b></td>";
@@ -110,7 +122,7 @@
 		echo "<tr>";
 		echo "<td>" . $row["name"] . "</td>";
 		echo "<td>" . $row["category"] . "</td>";
-		echo "<td>" . $row["length"] . "</td>";
+		echo "<td>" . $row["length"] . " minutes </td>";
 		if ($row["rented"] == 0) {
 			$resultRent = "Available";
 		}
