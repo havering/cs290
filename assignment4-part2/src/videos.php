@@ -3,7 +3,7 @@
 	$host = 'oniddb.cws.oregonstate.edu';
 	$db = 'ohaverd-db';
 	$user = 'ohaverd-db';
-	$pw = 'deleted for git push';
+	$pw = 'delete for git push';
 
 	$mysqli = new mysqli($host, $user, $pw, $db);
 	if ($mysqli->connect_errno) {
@@ -14,6 +14,7 @@
 		$reachEnd = true;
 
 		// error handling from form
+		// need to make this more plain english at some point
 		foreach($_GET as $key => $value) {
 			if (empty($value)) {
 				echo '<p>Missing parameter ' . $key . ".";
@@ -43,7 +44,6 @@
 <head>
 	<title>Video Store</title>
 	<stylesheet rel="stylesheet" href="videos.css">
-	<script src="videos.js"></script>
 </head>
 <body>
 	
@@ -60,19 +60,22 @@
 			
 			$filterquery = "SELECT DISTINCT category FROM videos";
 
-			$dropdown = "<form id='filter' name='filter' method='POST' action=''>
+			$dropdown = "<form id='filter' name='filter' method='POST' action='videos.php'>
 			<p><label><b>Filter Table</b></label></p>
 			<select name='filter' id='filter'>";
 			// add in all movie option
-			$dropdown .= "<option>All Movies</option>";
+			$dropdown .= "<option value='all'>All Movies</option>";
 
 			$filter = $mysqli->query($filterquery);
 
 			while ($row = $filter->fetch_array(MYSQLI_ASSOC)) {
-				$dropdown .= "<option>" . $row['category'] . "</option>";
+				$filName = $row['category'];
+
+				$dropdown .= "<option value='" . $filName . "'>" . $filName . "</option>";
 			}
 
-			$dropdown .= "</select></form>";
+			$dropdown .= "</select>
+			<input type='submit' value='Filter Results'></form>";
 			
 			echo $dropdown;
 
@@ -83,7 +86,12 @@
 <!--table display-->
 <?php
 
-	$query = "SELECT * FROM videos";
+	if ($_POST['filter'] == "all" || !($_POST['filter'])) {
+		$query = "SELECT * FROM videos";
+	}
+	else {
+		$query = "SELECT * FROM videos WHERE category='" . $_POST['filter'] . "'";
+	}
 
 	$newstmt = $mysqli->query($query);
 
